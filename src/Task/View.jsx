@@ -1,14 +1,14 @@
 import React from "react";
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { addTask } from '../actions';
 import _ from 'lodash';
-import Priority from './Priority'
 import Delete from './Delete'
 import Complete from './Complete'
+import SetPriority from './SetPriority'
 
 const ViewTask = props => {
-    const task = _.find(props.tasks, x => x.id === props.match.params.id)
+    const { tasks, match, history } = props
+    const task = _.find(tasks, x => x.id === match.params.id)
     if (!task) return <label>Invalid task id</label>
     return (
         <div className="container">
@@ -29,16 +29,15 @@ const ViewTask = props => {
                 <div className="form-group">
                     <label><strong>Task Priority</strong></label>
                     <div>
-                        <Priority task={task} />
+                        <SetPriority task={task} />
                     </div>
                 </div>
-                <br />
                 <div>
                     <Complete task={task} />
                     <span style={{ paddingRight: '20px' }}></span>
                     <Delete task={task} />
                     <span style={{ paddingRight: '20px' }}></span>
-                    <button className="btn btn-info">Return</button>
+                    <button onClick={() => history.goBack()} className="btn btn-info">Return</button>
                     <span style={{ paddingRight: '20px' }}></span>
                 </div>
             </div>

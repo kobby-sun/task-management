@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap'
 import BootstrapTable from 'react-bootstrap-table-next';
 import { withRouter, Link } from 'react-router-dom';
 import _ from 'lodash';
-import Priority from './Priority'
+import PriorityBadge from './PriorityBadge'
 
 const columns = [{
     dataField: 'id',
@@ -21,15 +21,15 @@ const columns = [{
 }, {
     dataField: 'taskPriority',
     text: 'Task Priority',
-    formatter: (cell, row) => { return <Priority task={row} /> },
+    formatter: (cell, row) => { return <PriorityBadge p={row.taskPriority} /> },
     sort: true
 }];
 
 const ListFilter = ({ match }) => {
     let filter = match.params.filter
     return <Row>
-        <Col xs={1}><Link to="/tasks" className={`badge${_.isEmpty(filter) ? ' badge-primary' : ''}`}><span style={{ fontSize: '15px' }}>All Task</span></Link></Col>
-        <Col xs={1}><Link to="/tasks/completed" className={`badge${filter === 'completed' ? ' badge-success' : ''}`}><span style={{ fontSize: '15px' }}>Completed Task</span></Link></Col>
+        <Col xs={1}><Link to="/tasks" className={`badge${_.isEmpty(filter) ? ' badge-primary' : ''}`}><span style={{ fontSize: '15px' }}>My Tasks</span></Link></Col>
+        <Col xs={1}><Link to="/tasks/completed" className={`badge${filter === 'completed' ? ' badge-success' : ''}`}><span style={{ fontSize: '15px' }}>Completed Tasks</span></Link></Col>
     </Row>
 }
 
