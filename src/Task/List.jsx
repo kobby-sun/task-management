@@ -25,15 +25,24 @@ const columns = [{
     sort: true
 }];
 
-const ListFilter = ({ match }) => {
-    let filter = match.params.filter
+const ListFilter = ({ match, history, tasks }) => {
     return <Row>
-        <Col xs={1}><Link to="/tasks" className={`badge${_.isEmpty(filter) ? ' badge-primary' : ''}`}><span style={{ fontSize: '15px' }}>My Tasks</span></Link></Col>
-        <Col xs={1}><Link to="/tasks/completed" className={`badge${filter === 'completed' ? ' badge-success' : ''}`}><span style={{ fontSize: '15px' }}>Completed Tasks</span></Link></Col>
+        <Col xs={3}>
+
+            <button type="button" onClick={() => history.push('/tasks')} className={`btn btn-${_.isEmpty(match.params.filter) ? 'primary' : 'light'}`}>
+                Open Tasks <span className="badge badge-info">{_.filter(tasks, x => !x.completed).length}</span>
+            </button>
+        </Col>
+        <Col xs={3}>
+
+            <button type="button" onClick={() => history.push('/tasks/completed')} className={`btn btn-${match.params.filter === 'completed' ? 'success' : 'light'}`}>
+                Completed Tasks <span className="badge badge-info">{_.filter(tasks, x => x.completed).length}</span>
+            </button>
+        </Col>
     </Row>
 }
 
-const List = ({ tasks, match }) => {
+const List = ({ tasks, match, history }) => {
     let tsks = _.filter(tasks, x => !x.completed)
     let filter = match.params.filter
     if (filter) {
@@ -50,7 +59,7 @@ const List = ({ tasks, match }) => {
     return <div className="container">
         <h4>Task List</h4>
         <br />
-        <ListFilter match={match} />
+        <ListFilter match={match} tasks={tasks} history={history} />
         <br />
         <BootstrapTable keyField='id' data={tsks} columns={columns} noDataIndication={() => <strong>No task</strong>} />
     </div>
