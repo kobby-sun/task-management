@@ -9,7 +9,7 @@ function AppRouter() {
 
       <div className="container">
         <br />
-        <h3>Task List</h3>
+        <h3>To-do List</h3>
         <hr />
 
         <nav>
