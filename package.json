@@ -5,7 +5,18 @@
   "dependencies": {
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "react-router-dom": "^4.3.1",
+    "react-bootstrap-table-next": "^3.0.0",
+    "bootstrap": "^4.3.1",
+    "react-bootstrap": "^1.0.0-beta.5",
+    "redux": "^4.0.1",
+    "react-redux": "^6.0.1",
+    "lodash": "^4.17.11",
+    "immutable": "^4.0.0-rc.12",
+    "redux-form": "^8.1.0",
+    "shortid": "^2.2.14",
+    "redux-immutable": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
