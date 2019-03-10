@@ -3,15 +3,9 @@ import { combineReducers } from 'redux';
 import { ADD_TASK, DELETE_TASK, COMPLETE_TASK, SET_PRIORITY } from './constants'
 import shortid from 'shortid'
 import _ from 'lodash';
+import { appState } from './InitialState'
 
-const initialState = {
-    loading: false,
-    error: false,
-    task: null,
-    tasks: !_.isEmpty(sessionStorage.getItem('tasks')) ? JSON.parse(sessionStorage.getItem('tasks')) : [],
-};
-
-function appReducer(state = initialState, action) {
+function appReducer(state = appState, action) {
     switch (action.type) {
         case ADD_TASK:
             let tsks1 = _.clone(state.tasks)
