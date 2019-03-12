@@ -37,7 +37,6 @@ function appReducer(state = appState, action) {
             }
         case SET_PRIORITY:
             if (!state.tasks[action.task.id]) return state
-            state.tasks[action.task.id].taskPriority = action.task.taskPriority
             return {
                 ...state,
                 tasks: {
