@@ -8,42 +8,45 @@ import { appState } from './InitialState'
 function appReducer(state = appState, action) {
     switch (action.type) {
         case ADD_TASK:
-            let tsks1 = _.clone(state.tasks)
-            tsks1.push({ id: shortid.generate(), ...action.task })
-            sessionStorage.setItem('tasks', JSON.stringify(tsks1));
+            let id = shortid.generate()
             return {
                 ...state,
-                tasks: tsks1
+                tasks: {
+                    ...state.tasks,
+                    [id]: { id, ...action.task }
+                }
             }
         case DELETE_TASK:
-            let tsks2 = _.clone(state.tasks)
-            _.remove(tsks2, {
-                id: action.taskId
-            });
-            sessionStorage.setItem('tasks', JSON.stringify(tsks2));
+            if (!state.tasks[action.taskId]) return state
+            delete state.tasks[action.taskId]
             return {
                 ...state,
-                tasks: tsks2
+                tasks: state.tasks
             }
         case COMPLETE_TASK:
-            let tsks3 = _.clone(state.tasks)
-            let tsk3 = _.find(tsks3, { id: action.taskId })
-            if (tsk3)
-                tsk3.completed = true
-            sessionStorage.setItem('tasks', JSON.stringify(tsks3));
+            if (!state.tasks[action.taskId]) return state
             return {
                 ...state,
-                tasks: tsks3
+                tasks: {
+                    ...state.tasks,
+                    [action.taskId]: {
+                        ...state.tasks[action.taskId],
+                        completed: true
+                    }
+                }
             }
         case SET_PRIORITY:
-            let tsks4 = _.clone(state.tasks)
-            let tsk4 = _.find(tsks4, { id: action.task.id })
-            if (tsk4)
-                tsk4.taskPriority = action.task.taskPriority
-            sessionStorage.setItem('tasks', JSON.stringify(tsks4));
+            if (!state.tasks[action.task.id]) return state
+            state.tasks[action.task.id].taskPriority = action.task.taskPriority
             return {
                 ...state,
-                tasks: tsks4
+                tasks: {
+                    ...state.tasks,
+                    [action.task.id]: {
+                        ...state.tasks[action.task.id],
+                        taskPriority: action.task.taskPriority
+                    }
+                }
             }
         default:
             return state;

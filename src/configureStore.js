@@ -1,5 +1,6 @@
 import { createStore, compose } from 'redux';
 import createReducer from './reducers';
+import _ from 'lodash';
 
 export default function configureStore() {
 
@@ -16,6 +17,10 @@ export default function configureStore() {
             store.replaceReducer(createReducer());
         });
     }
+
+    store.subscribe(_.throttle(() => {
+        sessionStorage.setItem('tasks', JSON.stringify(store.getState().app.tasks))
+    }), 1000)
 
     return store;
 }

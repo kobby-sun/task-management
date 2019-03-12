@@ -48,7 +48,7 @@ const ViewTask = props => {
 }
 
 const mapStoreToProps = (store) => ({
-    tasks: store.app.tasks
+    tasks: _.map(_.keys(store.app.tasks), o => store.app.tasks[o])
 })
 
 const decorators = _.flow([
